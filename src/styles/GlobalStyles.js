@@ -5,74 +5,59 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    border-color: ${({ theme }) => theme.colors.border};
   }
 
   html {
     font-size: 16px;
-    scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
   }
 
   body {
-    font-family: ${({ theme }) => theme.fonts.body};
-    font-weight: 400;
-    line-height: 1.6;
-    color: ${({ theme }) => theme.colors.textPrimary};
-    background-color: ${({ theme }) => theme.colors.bgDark};
+    font-family: ${({ theme }) => theme.fonts.sans};
+    background-color: ${({ theme }) => theme.colors.background};
+    color: ${({ theme }) => theme.colors.foreground};
+    line-height: 1.5;
     overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: ${({ theme }) => theme.fonts.heading};
-    font-weight: 400;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
+    font-size: inherit;
+    font-weight: inherit;
   }
-
-  p { line-height: 1.7; }
 
   a {
-    text-decoration: none;
     color: inherit;
-    transition: opacity 0.2s ease;
-    &:hover { opacity: 0.8; }
+    text-decoration: none;
   }
 
-  ul, ol { list-style: none; }
+  ul, ol {
+    list-style: none;
+  }
 
-  img {
+  img, svg, video {
+    display: block;
     max-width: 100%;
     height: auto;
-    display: block;
+  }
+
+  button, input, textarea, select {
+    font: inherit;
+    color: inherit;
+    background: transparent;
+    border: none;
+    outline: none;
   }
 
   button {
-    font-family: ${({ theme }) => theme.fonts.body};
     cursor: pointer;
-    border: none;
-    background: none;
-    outline: none;
-    font-size: inherit;
-  }
-
-  input, textarea, select {
-    font-family: ${({ theme }) => theme.fonts.body};
-    outline: none;
-    border: none;
   }
 
   ::selection {
-    background-color: ${({ theme }) => theme.colors.accent};
-    color: ${({ theme }) => theme.colors.bgDark};
-  }
-
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: ${({ theme }) => theme.colors.bgDark}; }
-  ::-webkit-scrollbar-thumb {
-    background: ${({ theme }) => theme.colors.borderDark};
-    border-radius: 3px;
+    background-color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.primaryForeground};
   }
 `;
 

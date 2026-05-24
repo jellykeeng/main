@@ -3,14 +3,13 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import theme from "./styles/theme";
 import GlobalStyles from "./styles/GlobalStyles";
-import ScrollToTop from "./components/common/ScrollToTop";
+import ScrollToTop from "./components/common/ScrollToTop.jsx";
 
-import HomePage from "./pages/HomePage/HomePage";
-import ThePatchPage from "./pages/ThePatchPage/ThePatchPage";
-import ExperiencesPage from "./pages/ExperiencesPage/ExperiencesPage";
-import HowItWorksPage from "./pages/HowItWorksPage/HowItWorksPage";
-import AccountPage from "./pages/AccountPage/AccountPage";
-import AboutPage from "./pages/AboutPage/AboutPage";
+import HomePage from "./pages/HomePage/HomePage.jsx";
+import ThePatchPage from "./pages/ThePatchPage/ThePatchPage.jsx";
+import ExperiencesPage from "./pages/ExperiencesPage/ExperiencesPage.jsx";
+import HowItWorksPage from "./pages/HowItWorksPage/HowItWorksPage.jsx";
+import AboutPage from "./pages/AboutPage/AboutPage.jsx";
 
 function App() {
   return (
@@ -23,7 +22,6 @@ function App() {
           <Route path="/experiences" element={<ExperiencesPage />} />
           <Route path="/patch" element={<ThePatchPage />} />
           <Route path="/how-it-works" element={<HowItWorksPage />} />
-          <Route path="/account" element={<AccountPage />} />
           <Route path="/about" element={<AboutPage />} />
         </Routes>
       </BrowserRouter>
