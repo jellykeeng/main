@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { media } from "../../styles/theme";
@@ -13,9 +13,19 @@ const NAV_ITEMS = [
 
 const Header = () => {
   const { pathname } = useLocation();
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <HeaderWrapper>
+    <HeaderWrapper $scrolled={scrolled}>
       <HeaderInner>
         <LogoLink to="/">
           <LogoCircle />
@@ -49,10 +59,14 @@ const HeaderWrapper = styled.nav`
   left: 0;
   right: 0;
   z-index: 50;
-  background-color: rgba(0, 8, 20, 0.8);
-  backdrop-filter: blur(24px);
-  border-bottom: 1px solid rgba(139, 92, 246, 0.15);
   transition: all 700ms ease;
+  background-color: ${({ $scrolled }) =>
+    $scrolled ? "rgba(0, 8, 20, 0.8)" : "transparent"};
+  backdrop-filter: ${({ $scrolled }) =>
+    $scrolled ? "blur(24px)" : "none"};
+  border-bottom: 1px solid
+    ${({ $scrolled }) =>
+      $scrolled ? "rgba(139, 92, 246, 0.15)" : "transparent"};
 `;
 
 const HeaderInner = styled.div`
