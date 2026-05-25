@@ -35,10 +35,10 @@ export const PurpleButton = styled.button`
   overflow: hidden;
   box-shadow: 0 10px 15px -3px rgba(124, 58, 237, 0.3),
     0 4px 6px -4px rgba(124, 58, 237, 0.3);
-  transition: all ${({ theme }) => theme.transitions.slow};
+  transition: all 500ms ease;
 
   &:hover {
-    transform: translateY(-1px);
+    transform: scale(1.05);
     box-shadow: 0 10px 15px -3px rgba(124, 58, 237, 0.4),
       0 4px 6px -4px rgba(124, 58, 237, 0.4);
   }

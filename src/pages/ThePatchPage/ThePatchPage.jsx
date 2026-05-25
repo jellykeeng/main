@@ -1,8 +1,10 @@
 import React from "react";
 import styled from "styled-components";
+import { motion } from "framer-motion";
 import { media } from "../../styles/theme";
 import Header from "../../components/common/Header.jsx";
 import Footer from "../../components/common/Footer.jsx";
+import FadeIn from "../../components/common/FadeIn.jsx";
 import { GradientText, PurpleButton } from "../../styles/common";
 import patchImage from "../../assets/hero.png";
 
@@ -44,7 +46,11 @@ const ThePatchPage = () => (
       <HeroSection>
         <HeroGradientOverlay />
         <HeroInner>
-          <HeroContent>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+          >
             <HeroBadge>Neural Interface Technology</HeroBadge>
             <HeroTitle>
               A patch<br />
@@ -57,130 +63,156 @@ const ThePatchPage = () => (
               Wear it, dream it, remember it.
             </HeroDesc>
             <PurpleButton>Order Now — $299</PurpleButton>
-          </HeroContent>
+          </motion.div>
 
-          <HeroImageWrapper>
-            <HeroImageGlow />
-            <HeroImageBox>
-              <img src={patchImage} alt="DreamNet Neural Patch" />
-            </HeroImageBox>
-          </HeroImageWrapper>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+          >
+            <HeroImageWrapper>
+              <HeroImageGlow />
+              <HeroImageBox>
+                <img src={patchImage} alt="DreamNet Neural Patch" />
+              </HeroImageBox>
+            </HeroImageWrapper>
+          </motion.div>
         </HeroInner>
       </HeroSection>
 
       {/* ===== SPECS ===== */}
       <SpecsSection>
-        <SectionCenter>
-          <SectionTitle>Technical Specifications</SectionTitle>
-          <SectionDesc>Engineered for seamless neural integration</SectionDesc>
-        </SectionCenter>
+        <FadeIn>
+          <SectionCenter>
+            <SectionTitle>Technical Specifications</SectionTitle>
+            <SectionDesc>Engineered for seamless neural integration</SectionDesc>
+          </SectionCenter>
+        </FadeIn>
         <SpecsGrid>
-          {SPECS.map((spec) => (
-            <SpecCard key={spec.label}>
-              <SpecLabel>{spec.label}</SpecLabel>
-              <SpecValue>{spec.value}</SpecValue>
-              <SpecDesc>{spec.desc}</SpecDesc>
-            </SpecCard>
+          {SPECS.map((spec, i) => (
+            <FadeIn key={spec.label} delay={i * 0.1}>
+              <SpecCard>
+                <SpecLabel>{spec.label}</SpecLabel>
+                <SpecValue>{spec.value}</SpecValue>
+                <SpecDesc>{spec.desc}</SpecDesc>
+              </SpecCard>
+            </FadeIn>
           ))}
         </SpecsGrid>
       </SpecsSection>
 
       {/* ===== FEATURES ===== */}
       <FeaturesSection>
-        <SectionCenter>
-          <SectionTitle>Discreet & Comfortable</SectionTitle>
-          <SectionDescWide>
-            Designed to be virtually invisible. The skin-toned patch sits
-            comfortably behind your ear, blending seamlessly with your natural
-            skin tone.
-          </SectionDescWide>
-        </SectionCenter>
+        <FadeIn>
+          <SectionCenter>
+            <SectionTitle>Discreet & Comfortable</SectionTitle>
+            <SectionDescWide>
+              Designed to be virtually invisible. The skin-toned patch sits
+              comfortably behind your ear, blending seamlessly with your natural
+              skin tone.
+            </SectionDescWide>
+          </SectionCenter>
+        </FadeIn>
         <FeaturesGrid>
-          <FeaturesLeft>
+          <FadeIn direction="right">
             <FeaturesHeading>Key Features</FeaturesHeading>
             <FeaturesList>
-              {FEATURES.map((f) => (
-                <FeatureItem key={f.title}>
-                  <FeatureTitle>{f.title}</FeatureTitle>
-                  <FeatureDesc>{f.desc}</FeatureDesc>
-                </FeatureItem>
+              {FEATURES.map((f, i) => (
+                <FadeIn key={f.title} delay={i * 0.1} direction="right">
+                  <FeatureItem>
+                    <FeatureTitle>{f.title}</FeatureTitle>
+                    <FeatureDesc>{f.desc}</FeatureDesc>
+                  </FeatureItem>
+                </FadeIn>
               ))}
             </FeaturesList>
-          </FeaturesLeft>
-          <FeaturesRight>
-            <FeaturesImageGlow />
-            <FeaturesImageGrid>
-              {[1, 2, 3, 4].map((i) => (
-                <ImagePlaceholder key={i}>
-                  <PlaceholderOverlay />
-                </ImagePlaceholder>
-              ))}
-            </FeaturesImageGrid>
-            <FeaturesCaption>
-              Representative images showing device placement
-            </FeaturesCaption>
-          </FeaturesRight>
+          </FadeIn>
+          <FadeIn direction="left" delay={0.2}>
+            <FeaturesRight>
+              <FeaturesImageGlow />
+              <FeaturesImageGrid>
+                {[1, 2, 3, 4].map((i) => (
+                  <ImagePlaceholder key={i}>
+                    <PlaceholderOverlay />
+                  </ImagePlaceholder>
+                ))}
+              </FeaturesImageGrid>
+              <FeaturesCaption>
+                Representative images showing device placement
+              </FeaturesCaption>
+            </FeaturesRight>
+          </FadeIn>
         </FeaturesGrid>
       </FeaturesSection>
 
       {/* ===== HOW IT WORKS ===== */}
       <HowSection>
         <HowGrid>
-          <HowLeft>
-            <SectionTitle style={{ marginBottom: "2rem" }}>
-              How it works
-            </SectionTitle>
+          <div>
+            <FadeIn>
+              <SectionTitle style={{ marginBottom: "2rem" }}>
+                How it works
+              </SectionTitle>
+            </FadeIn>
             <StepsList>
-              {STEPS.map((step) => (
-                <StepItem key={step.num}>
-                  <StepNum>{step.num}</StepNum>
-                  <StepContent>
-                    <StepTitle>{step.title}</StepTitle>
-                    <StepDesc>{step.desc}</StepDesc>
-                  </StepContent>
-                </StepItem>
+              {STEPS.map((step, i) => (
+                <FadeIn key={step.num} delay={i * 0.15}>
+                  <StepItem>
+                    <StepNum>{step.num}</StepNum>
+                    <StepContent>
+                      <StepTitle>{step.title}</StepTitle>
+                      <StepDesc>{step.desc}</StepDesc>
+                    </StepContent>
+                  </StepItem>
+                </FadeIn>
               ))}
             </StepsList>
-          </HowLeft>
-          <HowRight>
+          </div>
+          <FadeIn direction="left" delay={0.2}>
             <HowVisual>
               <HowCircle />
               <HowGlow />
             </HowVisual>
-          </HowRight>
+          </FadeIn>
         </HowGrid>
       </HowSection>
 
       {/* ===== CLINICAL STATS ===== */}
       <StatsSection>
-        <SectionCenter>
-          <SectionTitle>Rigorously tested, clinically proven</SectionTitle>
-          <SectionDescWide>
-            DreamNet technology has undergone extensive clinical trials with
-            over 10,000 participants. Our neural synchronization protocols are
-            certified safe by leading neuroscience institutions worldwide.
-          </SectionDescWide>
-        </SectionCenter>
+        <FadeIn>
+          <SectionCenter>
+            <SectionTitle>Rigorously tested, clinically proven</SectionTitle>
+            <SectionDescWide>
+              DreamNet technology has undergone extensive clinical trials with
+              over 10,000 participants. Our neural synchronization protocols are
+              certified safe by leading neuroscience institutions worldwide.
+            </SectionDescWide>
+          </SectionCenter>
+        </FadeIn>
         <StatsGrid>
-          {STATS.map((s) => (
-            <StatItem key={s.label}>
-              <StatValue>{s.value}</StatValue>
-              <StatLabel>{s.label}</StatLabel>
-            </StatItem>
+          {STATS.map((s, i) => (
+            <FadeIn key={s.label} delay={i * 0.15}>
+              <StatItem>
+                <StatValue>{s.value}</StatValue>
+                <StatLabel>{s.label}</StatLabel>
+              </StatItem>
+            </FadeIn>
           ))}
         </StatsGrid>
       </StatsSection>
 
       {/* ===== CTA ===== */}
       <CTASection>
-        <SectionCenter>
-          <CTATitle>
-            Order the Patch.<br />Expand your memory.
-          </CTATitle>
-          <CTADesc>Limited availability. Ships within 2 weeks.</CTADesc>
-          <PurpleButton $large>Pre-Order Now — $299</PurpleButton>
-          <CTASmall>30-day money-back guarantee</CTASmall>
-        </SectionCenter>
+        <FadeIn>
+          <SectionCenter>
+            <CTATitle>
+              Order the Patch.<br />Expand your memory.
+            </CTATitle>
+            <CTADesc>Limited availability. Ships within 2 weeks.</CTADesc>
+            <PurpleButton $large>Pre-Order Now — $299</PurpleButton>
+            <CTASmall>30-day money-back guarantee</CTASmall>
+          </SectionCenter>
+        </FadeIn>
       </CTASection>
     </PageWrapper>
     <Footer />
@@ -206,7 +238,7 @@ const HeroSection = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8rem 1.5rem;
+  padding: 5.5rem 1.5rem 4rem;
 `;
 
 const HeroGradientOverlay = styled.div`
@@ -228,13 +260,12 @@ const HeroInner = styled.div`
   align-items: center;
   position: relative;
   z-index: 10;
+  width: 100%;
 
   ${media.md} {
     grid-template-columns: 1fr 1fr;
   }
 `;
-
-const HeroContent = styled.div``;
 
 const HeroBadge = styled.div`
   display: inline-block;
@@ -399,8 +430,6 @@ const FeaturesGrid = styled.div`
   }
 `;
 
-const FeaturesLeft = styled.div``;
-
 const FeaturesHeading = styled.h3`
   font-size: ${({ theme }) => theme.fontSizes["3xl"]};
   margin-bottom: 2rem;
@@ -476,7 +505,7 @@ const FeaturesCaption = styled.p`
 
 /* ----- How it works ----- */
 const HowSection = styled.section`
-   position: relative;
+  position: relative;
   padding: 8rem 3rem;
 
   ${media.lg} {
@@ -496,8 +525,6 @@ const HowGrid = styled.div`
     gap: 6rem;
   }
 `;
-
-const HowLeft = styled.div``;
 
 const StepsList = styled.div`
   display: flex;
@@ -537,8 +564,6 @@ const StepDesc = styled.p`
   opacity: 0.6;
   line-height: 1.625;
 `;
-
-const HowRight = styled.div``;
 
 const HowVisual = styled.div`
   position: relative;
