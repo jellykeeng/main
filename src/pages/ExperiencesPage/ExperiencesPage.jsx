@@ -706,7 +706,7 @@ const ModalCTA = styled.button`
 const GenerateModal = styled.div`
   position: relative;
   width: 100%;
-  max-width: 32rem;
+  max-width: 44rem;
   max-height: 90vh;
   overflow-y: auto;
   border-radius: ${({ theme }) => theme.radii["2xl"]};
@@ -725,12 +725,12 @@ const GenerateModal = styled.div`
 
 const GenHeader = styled.div`
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 `;
 
 const GenTitle = styled.h2`
   font-size: ${({ theme }) => theme.fontSizes["2xl"]};
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
   letter-spacing: -0.025em;
 `;
 
@@ -741,7 +741,7 @@ const GenDesc = styled.p`
 `;
 
 const GenField = styled.div`
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 `;
 
 const GenLabel = styled.label`
@@ -760,7 +760,7 @@ const GenTextarea = styled.textarea`
   color: ${({ theme }) => theme.colors.foreground};
   font-size: ${({ theme }) => theme.fontSizes.sm};
   line-height: 1.625;
-  resize: vertical;
+  resize: none;
   transition: border-color 500ms ease;
 
   &:focus {
@@ -774,7 +774,7 @@ const GenTextarea = styled.textarea`
 `;
 
 const GenPromptSection = styled.div`
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 `;
 
 const GenPromptLabel = styled.p`
