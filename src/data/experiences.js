@@ -9,6 +9,14 @@ export const CATEGORIES = [
   "Transcendent",
 ];
 
+export const PROMPTS = [
+  "A perfect afternoon that never happened",
+  "The conversation you wish you'd had",
+  "A place you've always belonged",
+  "The moment everything made sense",
+  "A friendship that transcends time",
+];
+
 export const EXPERIENCES = [
   {
     id: 1,
