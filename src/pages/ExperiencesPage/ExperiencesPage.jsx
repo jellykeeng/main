@@ -7,14 +7,25 @@ import Footer from "../../components/common/Footer.jsx";
 import FadeIn from "../../components/common/FadeIn.jsx";
 import { CATEGORIES, EXPERIENCES } from "../../data/experiences.js";
 
+const PROMPTS = [
+  "A perfect afternoon that never happened",
+  "The conversation you wish you'd had",
+  "A place you've always belonged",
+  "The moment everything made sense",
+  "A friendship that transcends time",
+];
+
 const ExperiencesPage = () => {
   const [activeCategory, setActiveCategory] = useState("All Experiences");
   const [search, setSearch] = useState("");
   const [selectedId, setSelectedId] = useState(null);
+  const [showGenerate, setShowGenerate] = useState(false);
+  const [prompt, setPrompt] = useState("");
 
   const filtered = useMemo(() => {
     return EXPERIENCES.filter((exp) => {
-      const matchCat = activeCategory === "All Experiences" || exp.category === activeCategory;
+      const matchCat =
+        activeCategory === "All Experiences" || exp.category === activeCategory;
       const matchSearch =
         !search ||
         exp.title.toLowerCase().includes(search.toLowerCase()) ||
@@ -38,10 +49,13 @@ const ExperiencesPage = () => {
                 <Badge>🧠 10,247 curated memories</Badge>
                 <PageTitle>Experience Library</PageTitle>
                 <PageDesc>
-                  Browse our collection of moments, or generate a custom memory tailored to you
+                  Browse our collection of moments, or generate a custom memory
+                  tailored to you
                 </PageDesc>
               </div>
-              <GenerateBtn>✨ Generate Custom</GenerateBtn>
+              <GenerateBtn onClick={() => setShowGenerate(true)}>
+                ✨ Generate Custom
+              </GenerateBtn>
             </TopRow>
           </FadeIn>
 
@@ -85,7 +99,11 @@ const ExperiencesPage = () => {
                   transition={{ duration: 0.4, delay: i * 0.05 }}
                 >
                   <Card onClick={() => setSelectedId(exp.id)}>
-                    <CardImage src={exp.image} alt={exp.title} loading="lazy" />
+                    <CardImage
+                      src={exp.image}
+                      alt={exp.title}
+                      loading="lazy"
+                    />
                     <CardOverlay />
                     <CardContent>
                       <CardTop>
@@ -114,7 +132,7 @@ const ExperiencesPage = () => {
         </Inner>
       </PageWrapper>
 
-      {/* ===== MODAL ===== */}
+      {/* ===== EXPERIENCE DETAIL MODAL ===== */}
       <AnimatePresence>
         {selected && (
           <ModalOverlay
@@ -147,16 +165,71 @@ const ExperiencesPage = () => {
                 <ModalInfoGrid>
                   <ModalInfoItem>
                     <ModalInfoLabel>Emotional Profile</ModalInfoLabel>
-                    <ModalInfoValue>{selected.emotionalProfile}</ModalInfoValue>
+                    <ModalInfoValue>
+                      {selected.emotionalProfile}
+                    </ModalInfoValue>
                   </ModalInfoItem>
                   <ModalInfoItem>
                     <ModalInfoLabel>Neural Depth</ModalInfoLabel>
                     <ModalInfoValue>{selected.neuralDepth}</ModalInfoValue>
                   </ModalInfoItem>
                 </ModalInfoGrid>
-                <ModalCTA>Add to Cart — $49</ModalCTA>
+                <ModalCTA>Download Experience</ModalCTA>
               </ModalBody>
             </ModalContent>
+          </ModalOverlay>
+        )}
+      </AnimatePresence>
+
+      {/* ===== GENERATE CUSTOM MODAL ===== */}
+      <AnimatePresence>
+        {showGenerate && (
+          <ModalOverlay
+            as={motion.div}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setShowGenerate(false)}
+          >
+            <GenerateModal
+              as={motion.div}
+              initial={{ opacity: 0, y: 40, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 40, scale: 0.95 }}
+              transition={{ duration: 0.3 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <ModalClose onClick={() => setShowGenerate(false)}>✕</ModalClose>
+
+              <GenHeader>
+                <GenTitle>Generate Custom Memory</GenTitle>
+                <GenDesc>
+                  Describe a moment, feeling, or experience you'd like to have
+                </GenDesc>
+              </GenHeader>
+
+              <GenField>
+                <GenLabel>Your Memory Prompt</GenLabel>
+                <GenTextarea
+                  rows={4}
+                  value={prompt}
+                  onChange={(e) => setPrompt(e.target.value)}
+                />
+              </GenField>
+
+              <GenPromptSection>
+                <GenPromptLabel>Try these prompts:</GenPromptLabel>
+                <GenPromptTags>
+                  {PROMPTS.map((p) => (
+                    <GenPromptTag key={p} onClick={() => setPrompt(p)}>
+                      {p}
+                    </GenPromptTag>
+                  ))}
+                </GenPromptTags>
+              </GenPromptSection>
+
+              <GenSubmitBtn>Generate Memory</GenSubmitBtn>
+            </GenerateModal>
           </ModalOverlay>
         )}
       </AnimatePresence>
@@ -383,7 +456,12 @@ const CardImage = styled.img`
 const CardOverlay = styled.div`
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3), transparent);
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.7),
+    rgba(0, 0, 0, 0.3),
+    transparent
+  );
 `;
 
 const CardContent = styled.div`
@@ -453,7 +531,12 @@ const CardBottomLine = styled.div`
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.5), transparent);
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.5),
+    transparent
+  );
   transform: scaleX(0);
   transition: transform 500ms ease;
 
@@ -462,7 +545,7 @@ const CardBottomLine = styled.div`
   }
 `;
 
-/* ----- Modal ----- */
+/* ----- Experience Detail Modal ----- */
 const ModalOverlay = styled.div`
   position: fixed;
   inset: 0;
@@ -605,5 +688,121 @@ const ModalCTA = styled.button`
   &:hover {
     transform: scale(1.02);
     box-shadow: 0 10px 15px -3px rgba(124, 58, 237, 0.5);
+  }
+`;
+
+/* ----- Generate Custom Modal ----- */
+const GenerateModal = styled.div`
+  position: relative;
+  width: 100%;
+  max-width: 32rem;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: ${({ theme }) => theme.radii["2xl"]};
+  border: 1px solid rgba(124, 58, 237, 0.2);
+  background: ${({ theme }) => theme.colors.card};
+  padding: 2.5rem;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(124, 58, 237, 0.3);
+    border-radius: 2px;
+  }
+`;
+
+const GenHeader = styled.div`
+  text-align: center;
+  margin-bottom: 2rem;
+`;
+
+const GenTitle = styled.h2`
+  font-size: ${({ theme }) => theme.fontSizes["2xl"]};
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.025em;
+`;
+
+const GenDesc = styled.p`
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  opacity: 0.6;
+  line-height: 1.625;
+`;
+
+const GenField = styled.div`
+  margin-bottom: 1.5rem;
+`;
+
+const GenLabel = styled.label`
+  display: block;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  opacity: 0.8;
+  margin-bottom: 0.5rem;
+`;
+
+const GenTextarea = styled.textarea`
+  width: 100%;
+  padding: 1rem;
+  border-radius: ${({ theme }) => theme.radii.lg};
+  background: rgba(26, 31, 58, 0.4);
+  border: 1px solid rgba(124, 58, 237, 0.2);
+  color: ${({ theme }) => theme.colors.foreground};
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  line-height: 1.625;
+  resize: vertical;
+  transition: border-color 500ms ease;
+
+  &:focus {
+    border-color: rgba(124, 58, 237, 0.5);
+  }
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.foreground};
+    opacity: 0.3;
+  }
+`;
+
+const GenPromptSection = styled.div`
+  margin-bottom: 2rem;
+`;
+
+const GenPromptLabel = styled.p`
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  opacity: 0.7;
+  margin-bottom: 0.75rem;
+`;
+
+const GenPromptTags = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+`;
+
+const GenPromptTag = styled.button`
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  background: rgba(26, 31, 58, 0.2);
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  opacity: 0.7;
+  transition: all 300ms ease;
+  text-align: left;
+
+  &:hover {
+    opacity: 1;
+    background: rgba(26, 31, 58, 0.4);
+  }
+`;
+
+const GenSubmitBtn = styled.button`
+  width: 100%;
+  padding: 1rem;
+  border-radius: 9999px;
+  background: ${({ theme }) => theme.colors.primary};
+  color: white;
+  font-size: ${({ theme }) => theme.fontSizes.base};
+  transition: all 500ms ease;
+
+  &:hover {
+    transform: scale(1.02);
   }
 `;
