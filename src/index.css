@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+/* DreamNet 커스텀 색상 */
+@theme {
+  --color-background: #000814;
+  --color-foreground: #f0f4f8;
+  --color-card: #0a1128;
+  --color-muted: #1a1f3a;
+  --color-border: rgba(139, 92, 246, 0.2);
+  --color-primary: #7c3aed;
+}
+
+/* 기본 스타일 */
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: var(--color-primary);
+  color: white;
+}

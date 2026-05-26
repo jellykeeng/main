@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import styled from "styled-components";
-import { media } from "../../styles/theme";
 
 const NAV_ITEMS = [
   { label: "Home", path: "/" },
@@ -16,140 +14,49 @@ const Header = () => {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <HeaderWrapper $scrolled={scrolled}>
-      <HeaderInner>
-        <LogoLink to="/">
-          <LogoCircle />
-          <LogoText>DreamNet</LogoText>
-        </LogoLink>
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
+        scrolled
+          ? "bg-[#000814]/80 backdrop-blur-xl border-b border-purple-500/15"
+          : "bg-transparent border-b border-transparent"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+        <Link to="/" className="flex items-center gap-2">
+          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-600 via-violet-500 to-purple-700 shadow-lg shadow-purple-500/30" />
+          <span className="tracking-tight text-foreground">DreamNet</span>
+        </Link>
 
-        <Nav>
+        <div className="hidden md:flex items-center gap-8">
           {NAV_ITEMS.map((item) => (
-            <NavLink
+            <Link
               key={item.label}
               to={item.path}
-              $active={pathname === item.path}
+              className={`text-sm relative group transition-opacity duration-500 ${
+                pathname === item.path ? "opacity-100" : "opacity-70 hover:opacity-100"
+              }`}
             >
               {item.label}
-              <NavUnderline />
-            </NavLink>
+              <span className="absolute -bottom-1 left-0 w-0 h-px bg-foreground/30 group-hover:w-full transition-all duration-700" />
+            </Link>
           ))}
-        </Nav>
+        </div>
 
-        <AccountButton to="/account">Account</AccountButton>
-      </HeaderInner>
-    </HeaderWrapper>
+        <Link
+          to="/account"
+          className="hidden md:inline-flex px-5 py-2 rounded-full bg-gradient-to-r from-purple-600 to-violet-600 text-white text-sm shadow-lg shadow-purple-500/30 transition-all duration-700 hover:opacity-90"
+        >
+          Account
+        </Link>
+      </div>
+    </nav>
   );
 };
 
 export default Header;
-
-const HeaderWrapper = styled.nav`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 50;
-  transition: all 700ms ease;
-  background-color: ${({ $scrolled }) =>
-    $scrolled ? "rgba(0, 8, 20, 0.8)" : "transparent"};
-  backdrop-filter: ${({ $scrolled }) =>
-    $scrolled ? "blur(24px)" : "none"};
-  border-bottom: 1px solid
-    ${({ $scrolled }) =>
-      $scrolled ? "rgba(139, 92, 246, 0.15)" : "transparent"};
-`;
-
-const HeaderInner = styled.div`
-  max-width: ${({ theme }) => theme.layout.maxWidth};
-  margin: 0 auto;
-  padding: 1.25rem 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const LogoLink = styled(Link)`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  text-decoration: none;
-`;
-
-const LogoCircle = styled.div`
-  width: 2rem;
-  height: 2rem;
-  border-radius: 9999px;
-  background: linear-gradient(to bottom right, #7c3aed, #8b5cf6, #6d28d9);
-  box-shadow: 0 10px 15px -3px rgba(124, 58, 237, 0.3);
-`;
-
-const LogoText = styled.span`
-  letter-spacing: -0.025em;
-  color: ${({ theme }) => theme.colors.foreground};
-`;
-
-const Nav = styled.div`
-  display: none;
-  align-items: center;
-  gap: 2rem;
-
-  ${media.md} {
-    display: flex;
-  }
-`;
-
-const NavUnderline = styled.span`
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background-color: rgba(240, 244, 248, 0.3);
-  transition: width 700ms ease;
-`;
-
-const NavLink = styled(Link)`
-  font-size: ${({ theme }) => theme.fontSizes.sm};
-  opacity: ${({ $active }) => ($active ? 1 : 0.7)};
-  transition: opacity 500ms ease;
-  position: relative;
-  text-decoration: none;
-
-  &:hover {
-    opacity: 1;
-  }
-
-  &:hover ${NavUnderline} {
-    width: 100%;
-  }
-`;
-
-const AccountButton = styled(Link)`
-  display: none;
-  padding: 0.5rem 1.25rem;
-  border-radius: 9999px;
-  background: linear-gradient(to right, #7c3aed, #7c3aed);
-  color: white;
-  font-size: ${({ theme }) => theme.fontSizes.sm};
-  box-shadow: 0 10px 15px -3px rgba(124, 58, 237, 0.3);
-  text-decoration: none;
-  transition: all 700ms ease;
-
-  ${media.md} {
-    display: inline-flex;
-  }
-
-  &:hover {
-    opacity: 0.9;
-  }
-`;
