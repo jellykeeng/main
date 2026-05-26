@@ -337,8 +337,16 @@ const GenerateBtn = styled.button`
   align-self: flex-start;
   transition: all 500ms ease;
 
+  svg {
+    transition: transform 500ms ease;
+  }
+
   &:hover {
     transform: scale(1.05);
+
+    svg {
+      transform: rotate(12deg);
+    }
   }
 
   ${media.md} {
