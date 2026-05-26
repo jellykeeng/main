@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import styled from "styled-components";
 import { media } from "../../styles/theme";
@@ -36,6 +36,17 @@ const ExperiencesPage = () => {
   }, [activeCategory, search]);
 
   const selected = EXPERIENCES.find((e) => e.id === selectedId);
+
+  useEffect(() => {
+    if (selectedId || showGenerate) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [selectedId, showGenerate]);
 
   return (
     <>
