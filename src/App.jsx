@@ -2,11 +2,11 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "./components/common/ScrollToTop.jsx";
 
-import HomePage from "./pages/HomePage/HomePage.jsx";
-import ThePatchPage from "./pages/ThePatchPage/ThePatchPage.jsx";
-import ExperiencesPage from "./pages/ExperiencesPage/ExperiencesPage.jsx";
-import HowItWorksPage from "./pages/HowItWorksPage/HowItWorksPage.jsx";
-import AboutPage from "./pages/AboutPage/AboutPage.jsx";
+import HomePage from "./pages/HomePage.jsx";
+import ThePatchPage from "./pages/ThePatchPage.jsx";
+import ExperiencesPage from "./pages/ExperiencesPage.jsx";
+import HowItWorksPage from "./pages/HowItWorksPage.jsx";
+import AboutPage from "./pages/AboutPage.jsx";
 
 function App() {
   return (
