@@ -47,7 +47,7 @@ const ExperiencesPage = () => {
           <FadeIn>
             <TopRow>
               <div>
-                <Badge><Brain size={16} /> 10,247 curated memories</Badge>
+                <Badge><Brain size={16} strokeWidth={1.5} /> 10,247 curated memories</Badge>
                 <PageTitle>Experience Library</PageTitle>
                 <PageDesc>
                   Browse our collection of moments, or generate a custom memory
@@ -55,7 +55,7 @@ const ExperiencesPage = () => {
                 </PageDesc>
               </div>
               <GenerateBtn onClick={() => setShowGenerate(true)}>
-                <Sparkles size={16} /> Generate Custom
+                <Sparkles size={16} strokeWidth={1.5} /> Generate Custom
               </GenerateBtn>
             </TopRow>
           </FadeIn>
@@ -63,7 +63,7 @@ const ExperiencesPage = () => {
           <FadeIn delay={0.1}>
             <SearchRow>
               <SearchWrapper>
-                <SearchIconWrapper><Search size={20} /></SearchIconWrapper>
+                <SearchIconWrapper><Search size={20} strokeWidth={1.5} /></SearchIconWrapper>
                 <SearchInput
                   type="text"
                   placeholder="Search experiences..."
@@ -157,8 +157,8 @@ const ExperiencesPage = () => {
                 <ModalTag>{selected.category}</ModalTag>
                 <ModalTitle>{selected.title}</ModalTitle>
                 <ModalMeta>
-                  <ModalMetaItem><Clock size={14} /> {selected.duration}</ModalMetaItem>
-                  <ModalMetaItem><TrendingUp size={14} /> {selected.intensity}</ModalMetaItem>
+                  <ModalMetaItem><Clock size={14} strokeWidth={1.5} /> {selected.duration}</ModalMetaItem>
+                  <ModalMetaItem><TrendingUp size={14} strokeWidth={1.5} /> {selected.intensity}</ModalMetaItem>
                   <ModalMetaItem><Star size={14} fill="rgba(255,255,255,0.7)" stroke="none" /> {selected.rating}</ModalMetaItem>
                   <span>{selected.users} experiences</span>
                 </ModalMeta>
