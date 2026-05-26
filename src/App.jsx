@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "./components/common/ScrollToTop.jsx";
 
 import HomePage from "./pages/HomePage.jsx";
@@ -10,7 +10,7 @@ import AboutPage from "./pages/AboutPage.jsx";
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -19,7 +19,7 @@ function App() {
         <Route path="/how-it-works" element={<HowItWorksPage />} />
         <Route path="/about" element={<AboutPage />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
