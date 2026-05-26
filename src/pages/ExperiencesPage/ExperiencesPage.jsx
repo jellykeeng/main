@@ -6,6 +6,7 @@ import Header from "../../components/common/Header.jsx";
 import Footer from "../../components/common/Footer.jsx";
 import FadeIn from "../../components/common/FadeIn.jsx";
 import { CATEGORIES, EXPERIENCES } from "../../data/experiences.js";
+import { Brain, Sparkles, Search, Clock, TrendingUp, Star } from "lucide-react";
 
 const PROMPTS = [
   "A perfect afternoon that never happened",
@@ -46,7 +47,7 @@ const ExperiencesPage = () => {
           <FadeIn>
             <TopRow>
               <div>
-                <Badge>🧠 10,247 curated memories</Badge>
+                <Badge><Brain size={16} /> 10,247 curated memories</Badge>
                 <PageTitle>Experience Library</PageTitle>
                 <PageDesc>
                   Browse our collection of moments, or generate a custom memory
@@ -54,7 +55,7 @@ const ExperiencesPage = () => {
                 </PageDesc>
               </div>
               <GenerateBtn onClick={() => setShowGenerate(true)}>
-                ✨ Generate Custom
+                <Sparkles size={16} /> Generate Custom
               </GenerateBtn>
             </TopRow>
           </FadeIn>
@@ -62,7 +63,7 @@ const ExperiencesPage = () => {
           <FadeIn delay={0.1}>
             <SearchRow>
               <SearchWrapper>
-                <SearchIcon>🔍</SearchIcon>
+                <SearchIconWrapper><Search size={20} /></SearchIconWrapper>
                 <SearchInput
                   type="text"
                   placeholder="Search experiences..."
@@ -111,13 +112,13 @@ const ExperiencesPage = () => {
                       </CardTop>
                       <CardBottom>
                         <CardMeta>
-                          <MetaItem>🕐 {exp.duration}</MetaItem>
-                          <MetaItem>📈 {exp.intensity}</MetaItem>
+                          <MetaItem><Clock size={14} /> {exp.duration}</MetaItem>
+                          <MetaItem><TrendingUp size={14} /> {exp.intensity}</MetaItem>
                         </CardMeta>
                         <CardTitle>{exp.title}</CardTitle>
                         <CardDesc>{exp.desc}</CardDesc>
                         <CardStats>
-                          <span>⭐ {exp.rating}</span>
+                          <StatRating><Star size={14} fill="rgba(255,255,255,0.7)" stroke="none" /> {exp.rating}</StatRating>
                           <span>•</span>
                           <span>{exp.users} experiences</span>
                         </CardStats>
@@ -156,9 +157,9 @@ const ExperiencesPage = () => {
                 <ModalTag>{selected.category}</ModalTag>
                 <ModalTitle>{selected.title}</ModalTitle>
                 <ModalMeta>
-                  <span>🕐 {selected.duration}</span>
-                  <span>📈 {selected.intensity}</span>
-                  <span>⭐ {selected.rating}</span>
+                  <ModalMetaItem><Clock size={14} /> {selected.duration}</ModalMetaItem>
+                  <ModalMetaItem><TrendingUp size={14} /> {selected.intensity}</ModalMetaItem>
+                  <ModalMetaItem><Star size={14} fill="rgba(255,255,255,0.7)" stroke="none" /> {selected.rating}</ModalMetaItem>
                   <span>{selected.users} experiences</span>
                 </ModalMeta>
                 <ModalLongDesc>{selected.longDesc}</ModalLongDesc>
@@ -356,12 +357,14 @@ const SearchWrapper = styled.div`
   flex: 1;
 `;
 
-const SearchIcon = styled.span`
+const SearchIconWrapper = styled.div`
   position: absolute;
   left: 1rem;
   top: 50%;
   transform: translateY(-50%);
   opacity: 0.4;
+  display: flex;
+  align-items: center;
 `;
 
 const SearchInput = styled.input`
@@ -805,4 +808,16 @@ const GenSubmitBtn = styled.button`
   &:hover {
     transform: scale(1.02);
   }
+`;
+
+const StatRating = styled.span`
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+`;
+
+const ModalMetaItem = styled.span`
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
 `;
