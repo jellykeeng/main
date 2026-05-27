@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import logo from "../../assets/logo.png";
 
 const COLUMNS = [
   {
@@ -36,9 +37,8 @@ const Footer = () => (
     <div className="max-w-7xl mx-auto">
       <div className="grid md:grid-cols-4 gap-12 mb-16">
         <div>
-          <Link to="/" className="flex items-center gap-2 mb-6 inline-flex">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-600 via-violet-500 to-purple-700 shadow-lg shadow-purple-500/30" />
-            <span className="tracking-tight">DreamNet</span>
+          <Link to="/" className="mb-6 inline-block">
+            <img src={logo} alt="DreamNet" className="h-24 w-auto" />
           </Link>
           <p className="opacity-60 text-sm leading-relaxed">
             Expanding human experience through advanced neural technology

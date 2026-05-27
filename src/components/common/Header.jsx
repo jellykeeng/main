@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import logo from "../../assets/logo.png";
 
 const NAV_ITEMS = [
   { label: "Home", path: "/" },
@@ -21,16 +22,14 @@ const Header = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
-        scrolled
-          ? "bg-[#000814]/80 backdrop-blur-xl border-b border-purple-500/15"
-          : "bg-transparent border-b border-transparent"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${scrolled
+        ? "bg-[#000814]/80 backdrop-blur-xl border-b border-purple-500/15"
+        : "bg-transparent border-b border-transparent"
+        }`}
     >
-      <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-600 via-violet-500 to-purple-700 shadow-lg shadow-purple-500/30" />
-          <span className="tracking-tight text-foreground">DreamNet</span>
+<div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+        <Link to="/">
+<img src={logo} alt="DreamNet" className="h-20 w-auto object-contain mt-4" />
         </Link>
 
         <div className="hidden md:flex items-center gap-8">
@@ -38,9 +37,8 @@ const Header = () => {
             <Link
               key={item.label}
               to={item.path}
-              className={`text-sm relative group transition-opacity duration-500 ${
-                pathname === item.path ? "opacity-100" : "opacity-70 hover:opacity-100"
-              }`}
+              className={`text-sm relative group transition-opacity duration-500 ${pathname === item.path ? "opacity-100" : "opacity-70 hover:opacity-100"
+                }`}
             >
               {item.label}
               <span className="absolute -bottom-1 left-0 w-0 h-px bg-foreground/30 group-hover:w-full transition-all duration-700" />
